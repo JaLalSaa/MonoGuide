@@ -60,7 +60,7 @@ header nav a {
   font-weight: 500;
   text-decoration: none;
   color: var(--textColor);
-  margin-left: 1.5rem;
+  margin-left: 1rem;
   transition: color 0.3s ease;
 }
 
@@ -146,13 +146,16 @@ main {
   }
 }
 
-/* Release Section */
+/* Order Sections */
 
-main #release {
+main #release, 
+     #chronological, 
+     #optimal, 
+     #aesthetic {
   padding: 1rem 1.5rem;
 }
 
-main #release h2 {
+main h2 {
   color: var(--accentColor);
 }
 

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MonoGuide - Release Order</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --mainColor: #1B1B2F;
+      --nav-card-color: #27293D;
+      --textColor: #E0E1DD;
+      --accentColor: #F3A712;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .scroll-target {
+      scroll-margin-top: 5.4375rem;
+    }
+
+    body {
+      background-color: var(--mainColor);
+      font-family: 'Poppins', sans-serif;
+      color: var(--textColor);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 1.5rem;
+      background-color: var(--nav-card-color);
+      box-shadow: 0 3px 8px rgba(132, 64, 64, 0.65);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    #logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: var(--accentColor);
+      user-select: none;
+    }
+
+    header nav a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--textColor);
+      margin-left: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover,
+    header nav a.active {
+      color: var(--accentColor);
+      cursor: pointer;
+    }
+
+    main {
+      margin-top: 5.5rem;
+    }
+
+    #hero {
+      background-image: url("pics/pic3.png");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 550px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    #hero::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.33);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    #hero .info {
+      width: 50%;
+      line-height: 1.4;
+      position: absolute;
+      top: 52%;
+      left: 8%;
+      transform: translateY(-50%) scale(1.05);
+      z-index: 11;
+    }
+
+    #hero .info h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    #hero .info p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--textColor);
+    }
+
+    .scroll-down {
+      display: inline-block;
+      margin-top: .5rem;
+      position: relative;
+      left: 50%;
+      transform: translate(-50%);
+      animation: bounce 1.5s infinite;
+      text-decoration: none;
+    }
+
+    @keyframes bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(5px);
+      }
+    }
+
+    main #release,
+    #chronological,
+    #optimal,
+    #aesthetic {
+      padding: 1rem 1.5rem;
+    }
+
+    main h2 {
+      color: var(--accentColor);
+    }
+
+    section p.description {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 0.5rem;
+      max-width: 800px;
+    }
+
+    .anime-cards {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      padding: 1.3rem 0;
+      justify-items: center;
+    }
+
+    .anime-cards .card {
+      background-color: var(--nav-card-color);
+      border-radius: 1rem;
+      padding: 1.2rem 1rem;
+      box-shadow: 0 0 10px rgba(243, 167, 18, 0.3);
+      transition: transform 0.3s ease;
+      width: 100%;
+      max-width: 320px;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .anime-cards .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(243, 167, 18, 0.6);
+    }
+
+    .anime-cards .card h3 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--accentColor);
+      font-size: 1.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .anime-cards .card p {
+      font-family: 'Poppins', sans-serif;
+      color: var(--textColor);
+      font-size: 0.95rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .anime-cards .card .story {
+      font-style: italic;
+      color: #ccc;
+      font-size: 0.85rem;
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--accentColor);
+      margin-top: 0.4rem;
+    }
+
+    .anime-cards .card .quote {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      color: var(--accentColor);
+      margin-top: 0.5rem;
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--accentColor);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      #hero .info {
+        width: 90%;
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+      }
+
+      #hero .info h1 {
+        font-size: 1.5rem;
+      }
+
+      #hero .info p {
+        font-size: 0.95rem;
+      }
+
+      .scroll-down {
+        font-size: 1.5rem;
+      }
+
+      .anime-cards {
+        grid-template-columns: 1fr;
+        padding: 1.3rem 0;
+      }
+
+      .anime-cards .card {
+        max-width: 100%;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="logo">MonoGuide</div>
+    <nav>
+      <a href="#release" class="active">Release Order</a>
+      <a href="#chronological">Chronological Order</a>
+      <a href="#optimal">Optimal Order</a>
+      <a href="#aesthetic">Aesthetic</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="info">
+        <h1>Your Path Through the Monogatari Series</h1>
+        <p>
+          Explore Release, Chronological, and Optimal watch orders with clear guidance, and dive into the series' unique aesthetic through handpicked visuals and details — all in one place.
+        </p>
+        <a href="#release" class="scroll-down"><img src="icons/arrow-down.png" width="30px" alt=""></a>
+      </div>
+    </section>
+
+    <section id="release" class="scroll-target">
+      <h2>Release Order</h2>
+      <p class="description">
+        This is the order in which the Monogatari series was originally released to the public. It's recommended for new viewers as it preserves the intended mystery of the narrative, gradually unveiling the story's secrets. Watching in this order replicates the original experience of the audience as the series unfolded.
+      </p>
+
+      <article class="anime-cards">
+        <div class="card">
+          <h3>Bakemonogatari</h3>
+          <p>15 Episodes | 2009 - 2010</p>
+          <p class="story">A supernatural tale of high school student Koyomi Araragi, whose encounters with oddities change his life forever.</p>
+          <p class="quote">"Monsters aren’t born—they’re made."</p>
+        </div>
+
+        <div class="card">
+          <h3>Kizumonogatari</h3>
+          <p>3 Movies | 2016 - 2017</p>
+          <p class="story">The origin story showing Araragi's transformation into a half-vampire and the events leading to Bakemonogatari.</p>
+          <p class="quote">"Pain can be forgotten. But the scars remain."</p>
+        </div>
+
+        <div class="card">
+          <h3>Nisemonogatari</h3>
+          <p>11 Episodes | 2012</p>
+          <p class="story">Explores the theme of authenticity and deception, focusing on Araragi’s sisters and their supernatural troubles.</p>
+          <p class="quote">"The truth is often stranger than fiction."</p>
+        </div>
+
+        <div class="card">
+          <h3>Nekomonogatari: Kuro</h3>
+          <p>4 Episodes | 2012</p>
+          <p class="story">Delves into the backstory of Tsubasa Hanekawa and her encounter with the “Black Hanekawa” phenomenon.</p>
+          <p class="quote">"When the darkness rises, so do we."</p>
+        </div>
+
+        <div class="card">
+          <h3>Monogatari Series: Second Season</h3>
+          <p>26 Episodes | 2013</p>
+          <p class="story">Continues the supernatural adventures and deepens character arcs with new mysteries and revelations.</p>
+          <p class="quote">"Every story has its shadows."</p>
+        </div>
+
+        <div class="card">
+          <h3>Hanamonogatari</h3>
+          <p>5 Episodes | 2014</p>
+          <p class="story">Focuses on Suruga Kanbaru’s story and her struggles with a mysterious monkey’s paw.</p>
+          <p class="quote">"Desire is a double-edged sword."</p>
+        </div>
+
+        <div class="card">
+          <h3>Tsukimonogatari</h3>
+          <p>4 Episodes | 2014</p>
+          <p class="story">Centers on Yotsugi Ononoki and her unique perspective in the continuing supernatural saga.</p>
+          <p class="quote">"Life is a story we tell ourselves."</p>
+        </div>
+
+        <div class="card">
+          <h3>Owarimonogatari (First Season)</h3>
+          <p>12 Episodes | 2015</p>
+          <p class="story">Unveils deeper layers of Araragi's past and his encounters with various oddities.</p>
+          <p class="quote">"The end is just a new beginning."</p>
+        </div>
+
+        <div class="card">
+          <h3>Koyomimonogatari</h3>
+          <p>12 Episodes | 2016</p>
+          <p class="story">Short stories focusing on Koyomi Araragi's life between major events.</p>
+          <p class="quote">"Every moment is a thread in the tapestry."</p>
+        </div>
+
+        <div class="card">
+          <h3>Owarimonogatari (Second Season)</h3>
+          <p>7 Episodes | 2017</p>
+          <p class="story">Continues resolving mysteries surrounding Araragi's journey.</p>
+          <p class="quote">"Facing truth is the hardest battle."</p>
+        </div>
+
+        <div class="card">
+          <h3>Zoku Owarimonogatari</h3>
+          <p>6 Episodes | 2018</p>
+          <p class="story">An epilogue revealing new twists and the fate of the characters.</p>
+          <p class="quote">"Time changes everything, but memories endure."</p>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+
+</html>
