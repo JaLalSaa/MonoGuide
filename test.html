@@ -6,11 +6,18 @@
   <title>MonoGuide - Release Order</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --mainColor: #1B1B2F;
+      --nav-card-color: #27293D;
+      --textColor: #E0E1DD;
+      --accentColor: #F3A712;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #0e0e0e;
-      color: #f0f0f0;
+      background-color: var(--mainColor);
+      color: var(--textColor);
       line-height: 1.6;
       padding: 1rem;
     }
@@ -19,63 +26,120 @@
       text-align: center;
       margin-bottom: 2rem;
       font-size: 2.4rem;
-      color: #ff66cc;
+      color: var(--accentColor);
     }
 
     .cards-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .card {
-      background-color: #1a1a1a;
+      background-color: var(--nav-card-color);
       border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 0 8px rgba(255, 102, 204, 0.15);
+      padding: 1rem;
+      box-shadow: 0 0 8px rgba(243, 167, 18, 0.3);
       transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 230px;
+      min-height: 220px;
+      color: var(--textColor);
     }
 
     .card:hover {
       transform: scale(1.03);
-      box-shadow: 0 0 15px #ff66cc;
+      box-shadow: 0 0 15px var(--accentColor);
     }
 
-    .card h3 {
+    /* داخل البطاقة: صورة + تفاصيل */
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 150px;
+      border-radius: 0.8rem;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+    }
+
+    .details {
+      flex-grow: 1;
+    }
+
+    .title {
       margin-top: 0;
-      color: #ff99cc;
+      color: var(--accentColor);
       font-size: 1.3rem;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.5rem;
     }
 
-    .card p {
+    .info {
       font-size: 1rem;
       margin-bottom: 0.6rem;
-      color: #ddd;
+      color: var(--textColor);
+    }
+
+    /* info line with episodes and year separated by pipe */
+    .info span {
+      display: inline-block;
+      margin: 0 0.4rem;
     }
 
     .story {
       font-style: italic;
-      color: #f8a1d1;
+      color: var(--accentColor);
       margin-bottom: 1rem;
       padding-left: 1rem;
-      border-left: 3px solid #ff66cc;
+      border-left: 3px solid var(--accentColor);
     }
 
     .quote {
       font-style: italic;
-      color: #bbb;
+      color: var(--textColor);
       font-size: 0.9rem;
-      border-left: 3px solid #ff66cc;
+      border-left: 3px solid var(--accentColor);
       padding-left: 0.8rem;
       margin-top: auto;
       user-select: none;
+      opacity: 0.8;
+    }
+
+    /* Responsive for mobile: image left, details right */
+    @media (max-width: 600px) {
+      .card {
+        flex-direction: row;
+        min-height: 120px;
+        padding: 1rem;
+      }
+      .card-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 0;
+        margin-right: 1rem;
+        border-radius: 0.7rem;
+      }
+      .card-content {
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .details {
+        flex-grow: 1;
+      }
+      .story {
+        padding-left: 0.7rem;
+        border-left-width: 3px;
+      }
+      .quote {
+        padding-left: 0.7rem;
+      }
     }
 
     /* Back to top button */
@@ -83,31 +147,22 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background-color: #ff66cc;
-      color: #fff;
+      background-color: var(--accentColor);
+      color: var(--mainColor);
       padding: 12px 18px;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       font-size: 1.2rem;
-      box-shadow: 0 0 15px rgba(255, 102, 204, 0.5);
+      box-shadow: 0 0 15px rgba(243, 167, 18, 0.7);
       transition: background-color 0.3s ease;
       z-index: 999;
       user-select: none;
     }
 
     #backToTop:hover {
-      background-color: #ff4bb3;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 0.8rem;
-      }
-
-      .card {
-        min-height: 260px;
-      }
+      background-color: #d99208;
+      color: var(--mainColor);
     }
   </style>
 </head>
@@ -118,80 +173,135 @@
   <div class="cards-container">
 
     <div class="card">
-      <h3>Bakemonogatari (2009)</h3>
-      <p>Episodes: 15</p>
-      <p class="story">The first meeting with Hitagi Senjougahara... and everything begins.</p>
-      <p class="quote">"I'm not a tsundere. I'm a tsuntsun." – Hitagi Senjougahara</p>
+      <img class="card-image" src="pics/Bakemonogatari.jpg" alt="Bakemonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Bakemonogatari</h3>
+          <p class="info"><span>15 episodes</span>|<span>2009</span></p>
+          <p class="story">The first meeting with Hitagi Senjougahara... and everything begins.</p>
+        </div>
+        <p class="quote">"People save themselves on their own. Nobody can ever save anyone else." – Koyomi Araragi</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Nisemonogatari (2012)</h3>
-      <p>Episodes: 11</p>
-      <p class="story">The story of the sisters and the illusions of black fire.</p>
-      <p class="quote">"Fake things... are real too." – Kaiki Deishuu</p>
+      <img class="card-image" src="https://i.imgur.com/O3RvUK3.jpg" alt="Nisemonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Nisemonogatari</h3>
+          <p class="info"><span>11 episodes</span>|<span>2012</span></p>
+          <p class="story">The story of the sisters and the illusions of black fire.</p>
+        </div>
+        <p class="quote">"Fake things... are real too." – Kaiki Deishuu</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Nekomonogatari: Kuro (2012)</h3>
-      <p>Episodes: 4</p>
-      <p class="story">The dark past of Tsubasa Hanekawa unfolds.</p>
-      <p class="quote">"I don't know everything. I only know what I know." – Tsubasa Hanekawa</p>
+      <img class="card-image" src="https://i.imgur.com/c21oukn.jpg" alt="Nekomonogatari: Kuro cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Nekomonogatari: Kuro</h3>
+          <p class="info"><span>4 episodes</span>|<span>2012</span></p>
+          <p class="story">The dark past of Tsubasa Hanekawa unfolds.</p>
+        </div>
+        <p class="quote">"I don't know everything. I only know what I know." – Tsubasa Hanekawa</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Monogatari Series: Second Season (2013)</h3>
-      <p>Episodes: 26</p>
-      <p class="story">Major changes in characters and storylines.</p>
-      <p class="quote">"Even in despair, you can still be kind." – Mayoi Hachikuji</p>
+      <img class="card-image" src="https://i.imgur.com/vXnvMyk.jpg" alt="Monogatari Series: Second Season cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Monogatari Series: Second Season</h3>
+          <p class="info"><span>26 episodes</span>|<span>2013</span></p>
+          <p class="story">Major changes in characters and storylines.</p>
+        </div>
+        <p class="quote">"Even in despair, you can still be kind." – Mayoi Hachikuji</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Hanamonogatari (2014)</h3>
-      <p>Episodes: 5</p>
-      <p class="story">Suruga Kanbaru's journey with her past and her creatures.</p>
-      <p class="quote">"You can't win unless you fight." – Suruga Kanbaru</p>
+      <img class="card-image" src="https://i.imgur.com/mUKdPhv.jpg" alt="Hanamonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Hanamonogatari</h3>
+          <p class="info"><span>5 episodes</span>|<span>2014</span></p>
+          <p class="story">Suruga Kanbaru's journey with her past and her creatures.</p>
+        </div>
+        <p class="quote">"You can't win unless you fight." – Suruga Kanbaru</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Tsukimonogatari (2014)</h3>
-      <p>Episodes: 4</p>
-      <p class="story">The appearance of Yotsugi Ononoki and Araragi's decision.</p>
-      <p class="quote">"This is my final transformation." – Koyomi Araragi</p>
+      <img class="card-image" src="https://i.imgur.com/Mua6NxT.jpg" alt="Tsukimonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Tsukimonogatari</h3>
+          <p class="info"><span>4 episodes</span>|<span>2014</span></p>
+          <p class="story">The appearance of Yotsugi Ononoki and Araragi's decision.</p>
+        </div>
+        <p class="quote">"This is my final transformation." – Koyomi Araragi</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Owarimonogatari (2015)</h3>
-      <p>Episodes: 12</p>
-      <p class="story">Secrets about Shinobu and the math classroom.</p>
-      <p class="quote">"There is no such thing as a perfect truth." – Ougi Oshino</p>
+      <img class="card-image" src="https://i.imgur.com/tR5hgtA.jpg" alt="Owarimonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Owarimonogatari</h3>
+          <p class="info"><span>12 episodes</span>|<span>2015</span></p>
+          <p class="story">Secrets about Shinobu and the math classroom.</p>
+        </div>
+        <p class="quote">"There is no such thing as a perfect truth." – Ougi Oshino</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Koyomimonogatari (2016)</h3>
-      <p>Episodes: 12</p>
-      <p class="story">Short monthly adventures.</p>
-      <p class="quote">"Some stories are better left incomplete." – Koyomi Araragi</p>
+      <img class="card-image" src="https://i.imgur.com/nEdyP9w.jpg" alt="Koyomimonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Koyomimonogatari</h3>
+          <p class="info"><span>12 episodes</span>|<span>2016</span></p>
+          <p class="story">Short monthly adventures.</p>
+        </div>
+        <p class="quote">"Some stories are better left incomplete." – Koyomi Araragi</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Kizumonogatari (2016-2017)</h3>
-      <p>3 Movies</p>
-      <p class="story">The origin of everything. How Araragi became a vampire.</p>
-      <p class="quote">"I want to die, but I don’t want to die." – Kiss-shot Acerola-Orion Heart-Under-Blade</p>
+      <img class="card-image" src="https://i.imgur.com/xkQ60mt.jpg" alt="Kizumonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Kizumonogatari</h3>
+          <p class="info"><span>3 Movies</span>|<span>2016-2017</span></p>
+          <p class="story">The origin of everything. How Araragi became a vampire.</p>
+        </div>
+        <p class="quote">"I want to die, but I don’t want to die." – Kiss-shot Acerola-Orion Heart-Under-Blade</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Owarimonogatari II (2017)</h3>
-      <p>Episodes: 7</p>
-      <p class="story">Closing stories and returning to the beginning.</p>
-      <p class="quote">"Life is full of painful farewells." – Koyomi Araragi</p>
+      <img class="card-image" src="https://i.imgur.com/qe87q6L.jpg" alt="Owarimonogatari II cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Owarimonogatari II</h3>
+          <p class="info"><span>7 episodes</span>|<span>2017</span></p>
+          <p class="story">Closing stories and returning to the beginning.</p>
+        </div>
+        <p class="quote">"Life is full of painful farewells." – Koyomi Araragi</p>
+      </div>
     </div>
 
     <div class="card">
-      <h3>Zoku Owarimonogatari (2018)</h3>
-      <p>Episodes: 6</p>
-      <p class="story">Mirrors and a completely reversed world.</p>
-      <p class="quote">"I’ve seen a reflection of who I could be." – Koyomi Araragi</p>
+      <img class="card-image" src="https://i.imgur.com/7u4vKcm.jpg" alt="Zoku Owarimonogatari cover" />
+      <div class="card-content">
+        <div class="details">
+          <h3 class="title">Zoku Owarimonogatari</h3>
+          <p class="info"><span>6 episodes</span>|<span>2018</span></p>
+          <p class="story">Mirrors and a completely reversed world.</p>
+        </div>
+        <p class="quote">"I’ve seen a reflection of who I could be." – Koyomi Araragi</p>
+      </div>
     </div>
 
   </div>
